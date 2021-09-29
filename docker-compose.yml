@@ -1,0 +1,45 @@
+version: "3.0"
+
+services:
+  elasticsearch:
+    container_name: es-container
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    environment:
+      - node.name=node1
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - http.host=0.0.0.0
+      - http.port=9200
+      - "http.cors.allow-origin=*,http://localhost,http://localhost:3000"
+      - "http.cors.enabled=true"
+      - "http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization,Accept"
+      - "http.cors.allow-credentials=true"
+      - "http.cors.allow-methods=OPTIONS,HEAD,GET,POST,PUT,DELETE"
+
+    networks:
+      - es-net
+    ports:
+      - 9200:9200
+
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+
+#  kibana:
+#    container_name: kb-container
+#    image: docker.elastic.co/kibana/kibana:7.11.0
+#    environment:
+#      - ELASTICSEARCH_HOSTS=http://es-container:9200
+#    networks:
+#      - es-net
+#    depends_on:
+#      - elasticsearch
+#    ports:
+#      - 5601:5601
+
+networks:
+  es-net:
+    driver: bridge
+
+volumes:
+  data01:
+    driver: local
