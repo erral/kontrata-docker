@@ -10,7 +10,7 @@ services:
       - discovery.type=single-node
       - http.host=0.0.0.0
       - http.port=9200
-      - "http.cors.allow-origin=*,http://localhost,http://localhost:3000"
+      - "http.cors.allow-origin=*"
       - "http.cors.enabled=true"
       - "http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization,Accept"
       - "http.cors.allow-credentials=true"
